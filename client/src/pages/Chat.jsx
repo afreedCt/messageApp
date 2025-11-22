@@ -53,7 +53,6 @@ const Chat = () => {
         }`}
       >
         <ChatWindow setShowChat={setShowChat} />
-        {/* <UserChat setShowChat={setShowChat} /> */}
       </div>
     </div>
   );

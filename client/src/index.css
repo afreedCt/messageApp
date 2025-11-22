@@ -24,10 +24,18 @@
 }
 
 
+.msg-box{
+  height: 600px;
+}
+
+
 @media (max-width: 768px){
   .sidebar{
     width:100%;
   } 
+  .msg-box{
+    height:550px ;
+  }
 }
 
 ::-webkit-scrollbar{

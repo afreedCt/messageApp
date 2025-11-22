@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { appContext } from "../contextAPI/useContext";
 import { socket } from "../socket";
 import Moment from "moment";
+import { Spinner } from "react-bootstrap";
 
 const ChatWindow = ({ setShowChat }) => {
-  const { currentChat, userData, messages, setMessages } =
+  const { currentChat, userData, messages, setMessages,messageLoading } =
     useContext(appContext);
 
   const [msgInput, setMsgInput] = useState("");
@@ -57,7 +58,7 @@ const ChatWindow = ({ setShowChat }) => {
     >
       <div>
         <button
-          className="btn btn-light d-md-none mx-2 mt-3"
+          className="btn btn-light d-md-none mx-2 mt-3 fw-bold"
           onClick={() => setShowChat(false)}
         >
           ←
@@ -70,11 +71,17 @@ const ChatWindow = ({ setShowChat }) => {
       ) : (
         <h1 className="text-center mt-5 fs-1 fw-bold">No chat selected</h1>
       )}
+      {
+        messageLoading?
+        <div className=" h-100 d-flex justify-content-center align-items-center">
+            <Spinner variant="primary" animation="border" />
+        </div>
+        :
       <div className="d-flex flex-column justify-content-end">
         <div
           ref={messagesRef}
-          className="flex-grow-1"
-          style={{ overflowY: "auto", height: "76vh" }}
+          className="flex-grow-1 msg-box"
+          style={{ overflowY: "auto", }}
         >
           {messages.length === 0 && (
             <div className="d-flex h-75 justify-content-center align-items-center">
@@ -132,6 +139,7 @@ const ChatWindow = ({ setShowChat }) => {
           </form>
         )}
       </div>
+      }
     </div>
   );
 };

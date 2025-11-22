@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginAPI, registerAPI } from "../server/allAPI";
+import { Spinner } from "react-bootstrap";
 
 const Home = () => {
   const [login, setLogin] = useState(true);
@@ -13,11 +14,14 @@ const Home = () => {
     password: "",
   });
 
+  const [loading,setLoading]=useState(false)
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = userData;
+    setLoading(true)
     if (!email || email.trim() === "" || !password || password.trim() === "") {
       toast.warning("Please fill all fields");
       return;
@@ -34,7 +38,9 @@ const Home = () => {
         sessionStorage.setItem("user", JSON.stringify(res.data.user));
         setUserData({ username: "", email: "", password: "" });
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       toast.error(error.message);
     }
   };
@@ -52,7 +58,7 @@ const Home = () => {
       toast.warning("Please fill all fields");
       return;
     }
-
+    
     try {
       const res = await registerAPI(userData);
       if (res.status === 400) {
@@ -65,7 +71,9 @@ const Home = () => {
         setUserData({ username: "", email: "", password: "" });
         setLogin(true);
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       toast.error(error.message);
     }
   };
@@ -157,16 +165,18 @@ const Home = () => {
               <button
                 onClick={handleLogin}
                 className="btn btn-light mt-1 w-100"
+                disabled={loading}
               >
-                Login
+                 {loading?<Spinner className="ms-2" size="sm" variant="primary" animation="border" />:"Login"}
               </button>
             )}
             {!login && (
               <button
                 onClick={handleRegister}
                 className="btn btn-light mt-1 w-100"
+                disabled={loading}
               >
-                Register
+                {loading?<Spinner className="ms-2" size="sm" variant="primary" animation="border" />:"Register"}
               </button>
             )}
           </div>

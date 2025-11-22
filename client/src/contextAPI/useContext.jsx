@@ -17,6 +17,8 @@ export const Context = ({ children }) => {
 
   const [onlineUsers, setOnlineUsers] = useState([]);
 
+  const [messageLoading,setMessageLoading]=useState(false)
+
   const fetchAllFriends = async () => {
     try {
       const res = await getAllUsersAPI(userData.id);
@@ -49,7 +51,9 @@ export const Context = ({ children }) => {
     messages,
     setMessages,
     onlineUsers,
-    setOnlineUsers
+    setOnlineUsers,
+    setMessageLoading,
+    messageLoading
   };
 
   return <appContext.Provider value={value}>{children}</appContext.Provider>;
