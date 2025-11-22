@@ -42,6 +42,9 @@ const Home = () => {
     } catch (error) {
       setLoading(false)
       toast.error(error.message);
+    }finally{
+      setLoading(false)
+
     }
   };
   const handleRegister = async (e) => {
