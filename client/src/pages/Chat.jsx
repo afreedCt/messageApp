@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
 import { useNavigate } from "react-router-dom";
-import UserChat from "../components/userChat.jsx";
 import { socket } from "../socket.js";
 import { appContext } from "../contextAPI/useContext.jsx";
+import ChatWindow from "../components/ChatWindow.jsx";
 
 const Chat = () => {
-  // const [userData, setUserData] = useState(null);
 
   const { userData, onlineUsers, setOnlineUsers, setUserData } =
     useContext(appContext);
@@ -37,6 +36,7 @@ const Chat = () => {
     };
   }, []);
 
+  // for online users
   // useEffect(() => {
   //   socket.on("online_users", (users) => {
   //     setOnlineUsers(users);
@@ -52,7 +52,8 @@ const Chat = () => {
           showChat ? "d-block" : "d-none d-md-block"
         }`}
       >
-        <UserChat setShowChat={setShowChat} />
+        <ChatWindow setShowChat={setShowChat} />
+        {/* <UserChat setShowChat={setShowChat} /> */}
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginAPI, registerAPI } from "../server/allAPI";
-import { socket } from "../socket";
 
 const Home = () => {
   const [login, setLogin] = useState(true);
