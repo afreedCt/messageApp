@@ -30,6 +30,7 @@ const Home = () => {
       const res = await loginAPI({ email, password });
       if (res.status === 401) {
         toast.error("Invalid credentials");
+        setLoading(false)
         return;
       }
       if (res.status === 200) {
@@ -37,14 +38,13 @@ const Home = () => {
         toast.success("Login successful");
         sessionStorage.setItem("user", JSON.stringify(res.data.user));
         setUserData({ username: "", email: "", password: "" });
+        setLoading(false)
       }
-      setLoading(false)
     } catch (error) {
       setLoading(false)
       toast.error(error.message);
     }finally{
       setLoading(false)
-
     }
   };
   const handleRegister = async (e) => {

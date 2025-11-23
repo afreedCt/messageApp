@@ -50,6 +50,7 @@ const Sidebar = ({ showChat, setShowChat }) => {
   };
 
   const handleLogout = () => {
+    console.log("logout")
     setDeleteLoading(true);
     sessionStorage.removeItem("user");
     setUserData(null);
