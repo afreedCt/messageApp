@@ -1,24 +1,21 @@
 const { Message } = require("../Models/messageModel");
 
 module.exports = (io) => {
-  let userSocketMap = {};
+  // let userSocketMap = {};
   const onlineUsers = new Map();
   io.on("connection", (socket) => {
     socket.on("user_connected", (username) => {
-      // console.log("username : ",username)
-      userSocketMap[username] = socket.id;
+      // userSocketMap[username] = socket.id;
       socket.username = username;
       onlineUsers.set(socket.id, username);
-      // io.emit("online_users", Object.keys(userSocketMap));
       io.emit("online_users", [...onlineUsers.values()]);
-      //   console.log("User connected:",userSocketMap);
       console.log("Online:", onlineUsers);
     });
 
     socket.on("join_private", ({ user1, user2 }) => {
       const room = [user1, user2].sort().join("_");
       socket.join(room);
-      socket.username = user1;
+      // socket.username = user1;
       //   console.log(`${socket.username} joined ${room}`);
     });
 
@@ -38,12 +35,12 @@ module.exports = (io) => {
 
     socket.on("disconnect", () => {
       if (socket.username) {
-        delete userSocketMap[socket.username];
+        // delete userSocketMap[socket.username];
         onlineUsers.delete(socket.id);
         // io.emit("online_users", Object.keys(userSocketMap));
         io.emit("online_users", [...onlineUsers.values()]);
       }
-      console.log("User disconnected:", socket.id, userSocketMap , "map : ",onlineUsers);
+      console.log("User disconnected:", socket.id , "map : ",onlineUsers);
     });
   });
 };
