@@ -84,16 +84,13 @@ const Sidebar = ({ showChat, setShowChat }) => {
               onClick={() => startChat(friend)}
             >
               <span className="fw-bold ms-2">{friend}</span>
-              
             </div>
           ))}
         </div>
 
         <div
           className="btn btn-light m-2 mt-5 text-center"
-          onClick={() => {
-            handleLogout;
-          }}
+          onClick={handleLogout}
         >
           {!deleteLoading && "Logout"}
           {deleteLoading && (
