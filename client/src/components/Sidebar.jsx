@@ -33,24 +33,22 @@ const Sidebar = ({ showChat, setShowChat }) => {
     setShowChat(true);
     const room = [userData.username, friend].sort().join("_");
 
-    // console.log("user data : ",userData)
-
     socket.emit("join_private", { user1: userData.username, user2: friend });
 
     try {
       setMessageLoading(true);
       const res = await getMessagesAPI(room);
-      // console.log(res.data)
       setMessages(res.data || []);
       setMessageLoading(false);
     } catch (err) {
       setMessageLoading(false);
-      console.error("Failed to load history", err);
+      console.error("Failed to load history", err.message);
+      toast.error(err.message)
     }
   };
 
   const handleLogout = () => {
-    console.log("logout")
+    // console.log("logout")
     setDeleteLoading(true);
     sessionStorage.removeItem("user");
     setUserData(null);

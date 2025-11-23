@@ -66,6 +66,7 @@ const Home = () => {
       const res = await registerAPI(userData);
       if (res.status === 400) {
         toast.error("User already exists");
+        setLoading(false)
         return;
       }
       if (res.status === 200) {

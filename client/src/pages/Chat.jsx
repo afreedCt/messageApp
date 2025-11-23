@@ -37,13 +37,14 @@ const Chat = () => {
   }, []);
 
   // for online users
-  // useEffect(() => {
-  //   socket.on("online_users", (users) => {
-  //     setOnlineUsers(users);
-  //   });
+  useEffect(() => {
+    socket.on("online_users", (users) => {
+      console.log("online users : ",users)
+      setOnlineUsers(users);
+    });
 
-  //   return () => socket.off("online_users");
-  // }, []);
+    return () => socket.off("online_users");
+  }, [userData]);
   return (
     <div className="d-flex flex-grow-1">
       <Sidebar showChat={showChat} setShowChat={setShowChat} />

@@ -6,8 +6,9 @@ import { Spinner } from "react-bootstrap";
 
 const ChatWindow = ({ setShowChat }) => {
   const { currentChat, userData, messages, setMessages,messageLoading } =
-    useContext(appContext);
-
+  useContext(appContext);
+  
+  const messagesRef = useRef(null);
   const [msgInput, setMsgInput] = useState("");
 
   const handleSendMessage = (e) => {
@@ -39,7 +40,6 @@ const ChatWindow = ({ setShowChat }) => {
     };
   }, [currentChat]);
 
-  const messagesRef = useRef(null);
 
   useEffect(() => {
     if (messagesRef.current) {
